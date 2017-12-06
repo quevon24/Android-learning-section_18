@@ -9,8 +9,8 @@ import com.google.gson.annotations.Expose;
 public class City {
 
     @Expose
-    public String name;
-    public int id;
+    private String name;
+    private int id;
 
     public City() {}
 
