@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String json = "{id: 0, cities: [{id: 1, name: 'London'}, {id: 2, name: 'Seville'}]}";
+        String json = "{id: 0, ciudades: [{id: 1, name: 'London'}, {id: 2, name: 'Seville'}]}";
 
         // Toast.makeText(this, city.getId() + " -- " + city.getName(), Toast.LENGTH_LONG).show();
 

@@ -2,6 +2,7 @@ package com.httprequest.httprequest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
 public class Town {
 
     private int id;
+    // Nombre con el que viene del json
+    @SerializedName("ciudades")
     private List<City> cities;
 
     public Town(){}
