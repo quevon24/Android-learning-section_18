@@ -1,10 +1,14 @@
 package com.httprequest.httprequest;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by quevon24 on 06/12/2017.
  */
 
 public class City {
+
+    @Expose
     public String name;
     public int id;
 
