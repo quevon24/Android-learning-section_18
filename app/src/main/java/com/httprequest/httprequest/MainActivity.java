@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Toast.makeText(this, city.getId() + " -- " + city.getName(), Toast.LENGTH_LONG).show();
+        // Toast.makeText(this, city.getId() + " -- " + city.getName(), Toast.LENGTH_LONG).show();
 
+        // Forma con GSON
+        Gson gson = new Gson();
+        City city1 = gson.fromJson(json, City.class);
+        Toast.makeText(this, city1.getId() + " -- " + city1.getName(), Toast.LENGTH_LONG).show();
     }
 }
