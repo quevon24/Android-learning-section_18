@@ -10,6 +10,12 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,13 +23,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String json = "{id: 0, ciudades: [{id: 1, name: 'London'}, {id: 2, name: 'Seville'}]}";
+        // Se prepara la base url
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://samples.openweathermap.org/data/2.5/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        // Toast.makeText(this, city.getId() + " -- " + city.getName(), Toast.LENGTH_LONG).show();
+        // Se crea la instancia al servicio
+        WeatherService service = retrofit.create(WeatherService.class);
 
-        // Forma con GSON, excluir variable de clase
-        Gson gson = new GsonBuilder().create();
-        Town town = gson.fromJson(json, Town.class);
-//        Toast.makeText(this, city1.getId() + " -- " + city1.getName(), Toast.LENGTH_LONG).show();
+        // Se prepara la peticion
+        Call<City> cityCall = service.getCity("Seville,es", "061761b9a182a97af7eda4711b7b91ad");
+
+        // se agrega en una cola y hace una llamada asincrona
+        cityCall.enqueue(new Callback<City>() {
+            @Override
+            public void onResponse(Call<City> call, Response<City> response) {
+                // peticion exitosa
+                // city ya parseado con gson
+                City city = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<City> call, Throwable t) {
+                // fallo en la peticion
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
     }
 }
