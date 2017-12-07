@@ -4,17 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.httprequest.httprequest.API.API;
+import com.httprequest.httprequest.API.APIServices.WeatherService;
+import com.httprequest.httprequest.Models.City;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,17 +19,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Se prepara la base url
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://samples.openweathermap.org/data/2.5/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
         // Se crea la instancia al servicio
-        WeatherService service = retrofit.create(WeatherService.class);
+        WeatherService service = API.getApi().create(WeatherService.class);
 
         // Se prepara la peticion
-        Call<City> cityCall = service.getCity("Seville,es", "061761b9a182a97af7eda4711b7b91ad");
+        Call<City> cityCall = service.getCityCelcius("Seville,es", API.APPKEY, "metric");
 
         // se agrega en una cola y hace una llamada asincrona
         cityCall.enqueue(new Callback<City>() {
