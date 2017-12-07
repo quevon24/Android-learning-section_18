@@ -14,15 +14,17 @@ public class City {
     @Expose
     private String name;
     private int id;
-    @SerializedName("main")
-    private Temperature temperature;
+    private String country;
+//    @SerializedName("main")
+//    private Temperature temperature;
 
     public City() {}
 
-    public City(int id, String name, Temperature temperature) {
+    public City(int id, String name, String country) {
         this.id = id;
         this.name = name;
-        this.temperature = temperature;
+        this.country = country;
+//        this.temperature = temperature;
     }
 
     public String getName() {
@@ -41,18 +43,26 @@ public class City {
         this.id = id;
     }
 
-    public Temperature getTemperature() {
-        return temperature;
+    public String getCountry() {
+        return country;
     }
 
-    public void setTemperature(Temperature temperature) {
-        this.temperature = temperature;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public static  Temperature parseJSON(String response){
-        Gson gson = new GsonBuilder().create();
-        Temperature temp = gson.fromJson(response, Temperature.class);
-        return temp;
-    }
+    //    public Temperature getTemperature() {
+//        return temperature;
+//    }
+//
+//    public void setTemperature(Temperature temperature) {
+//        this.temperature = temperature;
+//    }
+//
+//    public static  Temperature parseJSON(String response){
+//        Gson gson = new GsonBuilder().create();
+//        Temperature temp = gson.fromJson(response, Temperature.class);
+//        return temp;
+//    }
 
 }

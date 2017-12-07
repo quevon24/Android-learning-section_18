@@ -1,5 +1,9 @@
 package com.httprequest.httprequest.API;
 
+import com.google.gson.GsonBuilder;
+import com.httprequest.httprequest.API.Deserializers.MyDeserializer;
+import com.httprequest.httprequest.Models.City;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -15,9 +19,18 @@ public class API {
 
     public static Retrofit getApi() {
         if (retrofit == null) {
+
+            // Uso de deserializador
+            GsonBuilder builder = new GsonBuilder();
+            // registrar deserialziador para clase city
+            builder.registerTypeAdapter(City.class, new MyDeserializer());
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    // Usar gson
+//                    .addConverterFactory(GsonConverterFactory.create())
+                    // Deserializador
+                    .addConverterFactory(GsonConverterFactory.create(builder.create()))
                     .build();
         }
         return retrofit;
